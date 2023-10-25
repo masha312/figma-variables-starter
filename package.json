@@ -1,0 +1,21 @@
+{
+  "name": "variables-boilerplate",
+  "version": "1.0.0",
+  "description": "Your Figma Plugin",
+  "main": "code.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "watch": "npm run build -- --watch"
+  },
+  "author": "",
+  "license": "",
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.76.0",
+    "typescript": "*"
+  },
+  "dependencies": {
+    "@create-figma-plugin/ui": "^2.6.1",
+    "figma-plugin-ds": "^1.0.1",
+    "preact": "^10.17.1"
+  }
+}
