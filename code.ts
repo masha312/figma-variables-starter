@@ -1,4 +1,77 @@
 
+
+/* Create spacing variables */
+function createSpacing(collection: VariableCollection) {
+  type Spacing = {
+    [key: number]: number;
+  }
+
+  const spacing: Spacing = {
+    1: 4,
+    2: 8,
+    3: 12,
+    4: 16,
+    5: 20,
+    6: 24,
+    7: 28,
+    8: 32,
+    9: 36,
+    10: 40,
+    12: 48,
+    14: 56,
+    16: 64,
+    20: 80,
+    24: 96,
+    28: 112,
+    32: 128,
+    36: 144,
+    40: 160,
+    44: 176,
+    48: 192,
+    52: 208,
+    56: 224,
+    60: 240,
+    64: 256,
+    72: 288,
+    80: 320,
+    96: 384,
+
+  }
+
+  for (const key in spacing) {
+    const spacerVariable = figma.variables.createVariable(`space/${key}`, collection.id, "FLOAT");
+    spacerVariable.setValueForMode(collection.modes[0].modeId, spacing[key]);
+    spacerVariable.scopes = ["GAP"]
+  }
+
+}
+
+/* Create radii variables */
+function createRadii(collection: VariableCollection) {
+  type Radii = {
+    [key: string]: number;
+  }
+
+  const radii: Radii = {
+    'none': 0,
+    'sm': 2,
+    'base': 4,
+    'md': 6,
+    'lg': 8,
+    'xl': 12,
+    '2xl': 16,
+    '3xl': 24,
+    'full': 999,
+  }
+
+  for (const key in radii) {
+    const radiiVariable = figma.variables.createVariable(`radii/${key}`, collection.id, "FLOAT");
+    radiiVariable.setValueForMode(collection.modes[0].modeId, radii[key]);
+    radiiVariable.scopes = ["CORNER_RADIUS"]
+  }
+}
+
+/* Create color variables */
 const slate: Color = {
   50: '#f8fafc',
   100: '#f1f5f9',
@@ -286,83 +359,8 @@ const rose: Color = {
   950: '#4c0519',
 };
 
-
-function createSpacing(collection: VariableCollection) {
-  type Spacing = {
-    [key: number]: number;
-  }
-
-  const spacing: Spacing = {
-    1: 4,
-    2: 8,
-    3: 12,
-    4: 16,
-    5: 20,
-    6: 24,
-    7: 28,
-    8: 32,
-    9: 36,
-    10: 40,
-    12: 48,
-    14: 56,
-    16: 64,
-    20: 80,
-    24: 96,
-    28: 112,
-    32: 128,
-    36: 144,
-    40: 160,
-    44: 176,
-    48: 192,
-    52: 208,
-    56: 224,
-    60: 240,
-    64: 256,
-    72: 288,
-    80: 320,
-    96: 384,
-
-  }
-
-
-  for (const key in spacing) {
-    const spacerVariable = figma.variables.createVariable(`space/${key}`, collection.id, "FLOAT");
-    spacerVariable.setValueForMode(collection.modes[0].modeId, spacing[key]);
-
-    spacerVariable.scopes = ["GAP"]
-  }
-
-}
-
-function createRadii(collection: VariableCollection) {
-  type Radii = {
-    [key: string]: number;
-  }
-
-  const radii: Radii = {
-    'none': 0,
-    'sm': 2,
-    'base': 4,
-    'md': 6,
-    'lg': 8,
-    'xl': 12,
-    '2xl': 16,
-    '3xl': 24,
-    'full': 999,
-  }
-
-  for (const key in radii) {
-    const radiiVariable = figma.variables.createVariable(`radii/${key}`, collection.id, "FLOAT");
-    radiiVariable.setValueForMode(collection.modes[0].modeId, radii[key]);
-
-    radiiVariable.scopes = ["CORNER_RADIUS"]
-  }
-}
-
 type Color = {
   [key: number]: string;
-
-
 }
 
 function hexToRgb(hex: string) {
@@ -376,14 +374,10 @@ function hexToRgb(hex: string) {
 
 function createColorGroup(name: string, set: Color, collection: VariableCollection) {
   for (const key in set) {
-
     const colorVariable = figma.variables.createVariable(`color/${name}/${key}`, collection.id, "COLOR");
     const RGB = hexToRgb(set[key]);
     colorVariable.setValueForMode(collection.modes[0].modeId, RGB);
-
     colorVariable.scopes = ["ALL_FILLS"]
-
-
   }
 }
 
@@ -401,17 +395,14 @@ function createZincColor(collection: VariableCollection) {
 }
 
 function createNeutralColor(collection: VariableCollection) {
-
   createColorGroup("neutral", neutral, collection);
 }
 
 function createStoneColor(collection: VariableCollection) {
-
   createColorGroup("stone", stone, collection);
 }
 
 function createRedColor(collection: VariableCollection) {
-
   createColorGroup("red", red, collection);
 }
 
@@ -419,85 +410,69 @@ function createOrangeColor(collection: VariableCollection) {
   createColorGroup("orange", orange, collection);
 }
 
-
 function createAmberColor(collection: VariableCollection) {
-
   createColorGroup("amber", amber, collection);
 }
 
 function createYellowColor(collection: VariableCollection) {
-
   createColorGroup("yellow", yellow, collection);
 }
 
 function createLimeColor(collection: VariableCollection) {
-
   createColorGroup("lime", lime, collection);
 }
 
 function createGreenColor(collection: VariableCollection) {
-
   createColorGroup("green", green, collection);
 }
 
 function createEmeraldColor(collection: VariableCollection) {
-
   createColorGroup("emerald", emerald, collection);
 }
 
 function createTealColor(collection: VariableCollection) {
-
   createColorGroup("teal", teal, collection);
 }
 
 function createCyanColor(collection: VariableCollection) {
-
   createColorGroup("cyan", cyan, collection);
 }
 
 function createSkyColor(collection: VariableCollection) {
-
   createColorGroup("sky", sky, collection);
 }
 
 function createBlueColor(collection: VariableCollection) {
-
   createColorGroup("blue", blue, collection);
 }
 
 function createIndigoColor(collection: VariableCollection) {
-
   createColorGroup("indigo", indigo, collection);
 }
 
 function createVioletColor(collection: VariableCollection) {
-
   createColorGroup("violet", violet, collection);
 }
 
 function createPurpleColor(collection: VariableCollection) {
-
   createColorGroup("purple", purple, collection);
 }
 
 function createFuchsiaColor(collection: VariableCollection) {
-
   createColorGroup("fuchsia", fuchsia, collection);
 }
 
 function createPinkColor(collection: VariableCollection) {
-
   createColorGroup("pink", pink, collection);
 }
 
 function createRoseColor(collection: VariableCollection) {
-
   createColorGroup("rose", rose, collection);
 }
 
+/* Show plugin window and pull existing collections / show input field for new collection */
 figma.showUI(__html__,
-  { width: 560, height: 640, title: "Variables Boilerplate" });
-
+  { width: 560, height: 640, title: "Variables Starter" });
 
 const existingCollections = figma.variables.getLocalVariableCollections();
 
@@ -506,8 +481,6 @@ if (existingCollections.length > 0) {
     name: localCollection.name,
     id: localCollection.id
   }));
-
-  console.log(collectionPairs)
 
   figma.ui.postMessage({
     type: "render-collections",
@@ -520,11 +493,9 @@ if (existingCollections.length > 0) {
 }
 
 
-
+/* Create selected variables */
 figma.ui.onmessage = msg => {
-
   if (msg.type === 'create-variables') {
-
     let collection;
     if (msg.collectionId) {
       collection = figma.variables.getVariableCollectionById(msg.collectionId);
@@ -574,57 +545,39 @@ figma.ui.onmessage = msg => {
       if (msg.checkboxStates.cyan) {
         createCyanColor(collection);
       }
-
       if (msg.checkboxStates.sky) {
         createSkyColor(collection);
       }
-
       if (msg.checkboxStates.blue) {
         createBlueColor(collection);
       }
-
       if (msg.checkboxStates.indigo) {
         createIndigoColor(collection);
       }
-
       if (msg.checkboxStates.violet) {
         createVioletColor(collection);
       }
-
       if (msg.checkboxStates.purple) {
         createPurpleColor(collection);
       }
-
       if (msg.checkboxStates.fuchsia) {
         createFuchsiaColor(collection);
       }
-
       if (msg.checkboxStates.pink) {
         createPinkColor(collection);
       }
-
       if (msg.checkboxStates.rose) {
         createRoseColor(collection);
       }
-
-
       if (msg.checkboxStates.spacing) {
         createSpacing(collection);
-
       }
-
       if (msg.checkboxStates.radii) {
         createRadii(collection);
-
       }
     }
-
-
-
-
   }
 
   figma.notify("Created variables ✅")
-
   figma.closePlugin();
 };
