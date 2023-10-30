@@ -417,6 +417,14 @@
     </fieldset>
     <fieldset class="fieldset--selector">
       <div>
+        <input type="checkbox" id="select-all-checkbox" />
+        <div>
+          <label for="select-all-checkbox">Select all</label>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset class="fieldset--selector">
+      <div>
         <input type="checkbox" id="slate-checkbox" />
         <label for="slate-checkbox">Slate</label>
         <div id="slate-color-container" class="container"></div>
@@ -547,6 +555,15 @@
   <script>
     const createButton = document.getElementById("create-button");
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const selectAllCheckbox = document.getElementById("select-all-checkbox");
+
+    // Function to handle the "select all" functionality
+    function toggleSelectAll() {
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = selectAllCheckbox.checked;
+      });
+      updateButtonState();
+    }
 
     function updateButtonState() {
       const isAtLeastOneChecked = Array.from(checkboxes).some(
@@ -554,10 +571,11 @@
       );
       createButton.disabled = !isAtLeastOneChecked;
     }
-
+    
     checkboxes.forEach((checkbox) => {
       checkbox.addEventListener("change", updateButtonState);
     });
+    selectAllCheckbox.addEventListener("change", toggleSelectAll);
 
     const slate = {
       50: "#f8fafc",
