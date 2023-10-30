@@ -39,9 +39,21 @@ function createSpacing(collection: VariableCollection) {
   }
 
   for (const key in spacing) {
-    const spacerVariable = figma.variables.createVariable(`space/${key}`, collection.id, "FLOAT");
-    spacerVariable.setValueForMode(collection.modes[0].modeId, spacing[key]);
-    spacerVariable.scopes = ["GAP"]
+
+    const existingSpaceVariableId = collection.variableIds.find((variableId: any) => figma.variables.getVariableById(variableId)?.name === `space/${key}`);
+    let existingSpaceVariable;
+    if (existingSpaceVariableId) {
+      existingSpaceVariable = figma.variables.getVariableById(existingSpaceVariableId);
+    }
+
+
+    if (existingSpaceVariable) {
+      existingSpaceVariable.setValueForMode(collection.modes[0].modeId, spacing[key]);
+    } else {
+      const spacerVariable = figma.variables.createVariable(`space/${key}`, collection.id, "FLOAT");
+      spacerVariable.setValueForMode(collection.modes[0].modeId, spacing[key]);
+      spacerVariable.scopes = ["GAP"]
+    }
   }
 
 }
@@ -65,9 +77,21 @@ function createRadii(collection: VariableCollection) {
   }
 
   for (const key in radii) {
-    const radiiVariable = figma.variables.createVariable(`radii/${key}`, collection.id, "FLOAT");
-    radiiVariable.setValueForMode(collection.modes[0].modeId, radii[key]);
-    radiiVariable.scopes = ["CORNER_RADIUS"]
+
+    const existingRadiiVariableId = collection.variableIds.find((variableId: any) => figma.variables.getVariableById(variableId)?.name === `radii/${key}`);
+    let existingRadiiVariable;
+    if (existingRadiiVariableId) {
+      existingRadiiVariable = figma.variables.getVariableById(existingRadiiVariableId);
+    }
+
+    if (existingRadiiVariable) {
+      existingRadiiVariable.setValueForMode(collection.modes[0].modeId, radii[key]);
+    } else {
+      const radiiVariable = figma.variables.createVariable(`radii/${key}`, collection.id, "FLOAT");
+      radiiVariable.setValueForMode(collection.modes[0].modeId, radii[key]);
+      radiiVariable.scopes = ["CORNER_RADIUS"]
+
+    }
   }
 }
 
@@ -374,10 +398,25 @@ function hexToRgb(hex: string) {
 
 function createColorGroup(name: string, set: Color, collection: VariableCollection) {
   for (const key in set) {
-    const colorVariable = figma.variables.createVariable(`color/${name}/${key}`, collection.id, "COLOR");
-    const RGB = hexToRgb(set[key]);
-    colorVariable.setValueForMode(collection.modes[0].modeId, RGB);
-    colorVariable.scopes = ["ALL_FILLS"]
+
+    const existingColorVariableId = collection.variableIds.find((variableId: any) => figma.variables.getVariableById(variableId)?.name === `color/${name}/${key}`);
+    let existingColorVariable;
+    if (existingColorVariableId) {
+      existingColorVariable = figma.variables.getVariableById(existingColorVariableId);
+    }
+
+
+    if (existingColorVariable) {
+      const RGB = hexToRgb(set[key]);
+      existingColorVariable.setValueForMode(collection.modes[0].modeId, RGB);
+    } else {
+      const colorVariable = figma.variables.createVariable(`color/${name}/${key}`, collection.id, "COLOR");
+      const RGB = hexToRgb(set[key]);
+      colorVariable.setValueForMode(collection.modes[0].modeId, RGB);
+      colorVariable.scopes = ["ALL_FILLS"]
+    }
+
+
   }
 }
 
@@ -472,7 +511,7 @@ function createRoseColor(collection: VariableCollection) {
 
 /* Show plugin window and pull existing collections / show input field for new collection */
 figma.showUI(__html__,
-  { width: 560, height: 640, title: "Variables Starter" });
+  { width: 520, height: 640, title: "Variables Starter" });
 
 const existingCollections = figma.variables.getLocalVariableCollections();
 
