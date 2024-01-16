@@ -413,7 +413,7 @@ function createColorGroup(name: string, set: Color, collection: VariableCollecti
       const colorVariable = figma.variables.createVariable(`color/${name}/${key}`, collection.id, "COLOR");
       const RGB = hexToRgb(set[key]);
       colorVariable.setValueForMode(collection.modes[0].modeId, RGB);
-      colorVariable.scopes = ["ALL_FILLS"]
+      colorVariable.scopes = ["ALL_SCOPES"]
     }
 
 
@@ -550,6 +550,9 @@ figma.ui.onmessage = msg => {
       }
       if (msg.checkboxStates.gray) {
         createGrayColor(collection);
+      }
+      if (msg.checkboxStates.zinc) {
+        createZincColor(collection);
       }
       if (msg.checkboxStates.neutral) {
         createNeutralColor(collection);

@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@create-figma-plugin/ui": "^2.6.1",
-    "figma-plugin-ds": "^1.0.1",
     "preact": "^10.17.1"
   }
 }
