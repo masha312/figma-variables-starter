@@ -511,7 +511,7 @@ function createRoseColor(collection: VariableCollection) {
 
 /* Show plugin window and pull existing collections / show input field for new collection */
 figma.showUI(__html__,
-  { width: 520, height: 640, title: "Variables Starter" });
+  { width: 520, height: 800, title: "Variables Starter" });
 
 const existingCollections = figma.variables.getLocalVariableCollections();
 
