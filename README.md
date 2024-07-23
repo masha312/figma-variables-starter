@@ -1,8 +1,10 @@
 # Variable Boilerplate
 
-> This plugin is design to quickly set up Tailwind variables in your Figma document
+> A Figma Plugin to quickly add Tailwind variables to your Figma document
 
 ## Usage guide
+
+![splash](splash.png)
 
 ### Overview
 
