@@ -1,5 +1,8 @@
 import { Optional, VariableOptions } from '../types'
 
+/**
+ * Mapping for Tailwind config > Figma variables
+ */
 export const variableOptions: Record<string, Record<string, Optional<VariableOptions, 'name'>>> = {
   units: {
     size: {

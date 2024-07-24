@@ -57,17 +57,15 @@ export function skipPrivate(values: Record<string, any>) {
 
 /**
  * Convert Hex to Figma RGB value
- * @param hex
  */
 export function hexToRgb(hex: string) {
   hex = hex.replace(/^#/, '')
   const bigint = parseInt(hex, 16)
-  const red = ((bigint >> 16) & 255) / 255
-  const green = ((bigint >> 8) & 255) / 255
-  const blue = (bigint & 255) / 255
-  return { r: red, g: green, b: blue }
+  const r = ((bigint >> 16) & 255) / 255
+  const g = ((bigint >> 8) & 255) / 255
+  const b = (bigint & 255) / 255
+  return { r, g, b }
 }
-
 
 /**
  * Create Figma variables

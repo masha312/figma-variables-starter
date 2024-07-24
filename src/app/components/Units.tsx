@@ -1,5 +1,4 @@
 import { h } from 'preact'
-
 import { sortEntries } from '../../utils'
 
 interface Props {

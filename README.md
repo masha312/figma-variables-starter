@@ -2,13 +2,13 @@
 
 > A Figma Plugin to quickly add Tailwind variables to your Figma document
 
-## Usage guide
-
 ![splash](splash.png)
+
+## Usage guide
 
 ### Overview
 
-The following variable sets / tokens are supported:
+The following tokens / variables are supported:
 
 - Units
   - `size`
@@ -22,12 +22,17 @@ The following variable sets / tokens are supported:
 - Colors
   - `all`
 
-Created variables properties include:
+Created variables have the following properties:
 
-- `Name`
-- `Value`
-- `Scope`
-- `Code syntax` (this allows plugins to choose the right token)
+- `name`
+- `value`
+- `scope`
+- `code syntax` (assigns Tailwind tokens to the `WEB` platform)
+
+To review the source config, see:
+
+- [Tailwind values](blob/main/src/config/tailwind.ts)
+- [Figma variables](blob/main/src/config/figma.ts)
 
 ### Usage
 
@@ -47,7 +52,7 @@ To view the created variables:
 
 ## Development guide
 
-*This plugin is built with [Create Figma Plugin](https://yuanqing.github.io/create-figma-plugin/).*
+> This plugin is built with [Create Figma Plugin](https://yuanqing.github.io/create-figma-plugin/).
 
 ### Pre-requisites
 

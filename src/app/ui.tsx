@@ -14,8 +14,8 @@ import {
 import { emit } from '@create-figma-plugin/utilities'
 import { h } from 'preact'
 import { useState } from 'preact/hooks'
-import { capitalize } from '../utils'
 import type { Config, OptionsState } from '../types'
+import { capitalize } from '../utils'
 import Fieldset from './components/Fieldset'
 import Swatches from './components/Swatches'
 import Units from './components/Units'
@@ -82,6 +82,7 @@ function Plugin(props: { collections: { name: string, id: string }[], config: Co
   function onWindowResize(size: { width: number; height: number }) {
     emit('RESIZE', size)
   }
+
   useWindowResize(onWindowResize, {
     maxWidth: 320,
     minHeight: 120,

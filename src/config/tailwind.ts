@@ -1,5 +1,13 @@
 import { Config } from '../types'
 
+/**
+ * Tailwind config
+ *
+ * In the future, config could perhaps be supplied / merged via a file picker?
+ *
+ * Use underscores to make properties private (percentage-based variables are currently unsupported)
+ * @see https://forum.figma.com/t/use-percentage-for-size-variables/46409
+ */
 export const config = {
   units: {
     // https://tailwindcss.com/docs/width
@@ -153,6 +161,7 @@ export const config = {
       'widest': '10%',
     },
   },
+  // https://tailwindcss.com/docs/customizing-colors
   colors: {
     slate: {
       50: '#f8fafc',

@@ -1,7 +1,7 @@
 import { on, showUI } from '@create-figma-plugin/utilities'
-import { createVariables, skipPrivate } from '../utils'
-import { variableOptions } from '../config/variables'
+import { variableOptions } from '../config/figma'
 import { config } from '../config/tailwind'
+import { createVariables, skipPrivate } from '../utils'
 import { ConfigChoices } from '../types'
 
 function onSubmit(collectionId: string, options: ConfigChoices) {
