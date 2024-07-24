@@ -42,7 +42,7 @@ Then:
 
 - go Toolbar > Resources > Plugins > Variables Boilerplate
 - click to toggle individual options
-- click "Toggle All" to toggle an entire group
+- click "Toggle all" to toggle an entire group
 - click "Create" to create variables
 
 To view the created variables:

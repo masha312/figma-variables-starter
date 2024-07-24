@@ -21,7 +21,7 @@ export default function (props: FieldsetProps) {
     <VerticalSpace space="extraLarge" />
     <Text>
       <Muted>{label}
-        {onToggle && <span> | <Link href="#" onClick={onClick}>Toggle All</Link></span>}
+        {onToggle && <span> | <Link href="#" onClick={onClick}>Toggle all</Link></span>}
       </Muted>
     </Text>
     <VerticalSpace space="large" />
