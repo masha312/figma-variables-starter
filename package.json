@@ -1,20 +1,30 @@
 {
-  "name": "variables-boilerplate",
+  "name": "figma-variables-boilerplate",
   "version": "1.0.0",
-  "description": "Your Figma Plugin",
-  "main": "code.js",
-  "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "watch": "npm run build -- --watch"
-  },
-  "author": "",
-  "license": "",
-  "devDependencies": {
-    "@figma/plugin-typings": "^1.76.0",
-    "typescript": "*"
-  },
+  "description": "A UI to generate Tailwind variables",
   "dependencies": {
-    "@create-figma-plugin/ui": "^2.6.1",
-    "preact": "^10.17.1"
+    "@create-figma-plugin/ui": "^3.2.0",
+    "@create-figma-plugin/utilities": "^3.2.0",
+    "@types/react": "^18.3.3",
+    "preact": ">=10"
+  },
+  "devDependencies": {
+    "@create-figma-plugin/build": "^3.2.0",
+    "@create-figma-plugin/tsconfig": "^3.2.0",
+    "@figma/plugin-typings": "^1.97.0",
+    "typescript": ">=4"
+  },
+  "scripts": {
+    "watch": "build-figma-plugin src/app/main.ts src/app/ui.tsx --typecheck --watch",
+    "build": "build-figma-plugin --output=./dist --typecheck --minify"
+  },
+  "figma-plugin": {
+    "id": "1281668905420544225",
+    "name": "Variables Boilerplate",
+    "main": "src/app/main.ts",
+    "ui": "src/app/ui.tsx",
+    "editorType": [
+      "figma"
+    ]
   }
 }
