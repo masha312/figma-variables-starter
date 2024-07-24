@@ -44,11 +44,17 @@ export default function () {
   on('CREATE', onSubmit)
   on('RESIZE', onResize)
 
+  // collections
+  let collections = figma.variables.getLocalVariableCollections()
+  if (collections.length === 0) {
+    const collection = figma.variables.createVariableCollection('Collection 1')
+    collections.push(collection)
+  }
+
+  // ui props
   const props = {
+    collections: collections.map(({ id, name }) => ({ id, name })),
     config: skipPrivate(config),
-    collections: figma.variables
-      .getLocalVariableCollections()
-      .map(({ id, name }) => ({ id, name })),
   }
 
   showUI({
