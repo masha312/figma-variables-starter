@@ -12,7 +12,7 @@ import {
  VerticalSpace,
 } from '@create-figma-plugin/ui'
 import { h } from 'preact'
-import { useState } from 'preact/hooks'
+import { useEffect, useState } from 'preact/hooks'
 import { makeBus } from 'figma-messaging'
 import type { Config, OptionsState } from '../types'
 import { capitalize } from '../utils'
@@ -75,6 +75,20 @@ function Plugin(props: { collections: { name: string, id: string }[], config: Co
     setOptions(newOptions)
   }
 
+  // enabled
+  const [enabled, setEnabled] = useState<boolean>(false)
+  useEffect(() => {
+    let state = false
+    for (const group of Object.values(options)) {
+      for (const value of Object.values(group)) {
+        if (value) {
+          state = true
+        }
+      }
+    }
+    setEnabled(state)
+  }, [options])
+
   // events
   const [loading, setLoading] = useState(false)
   const bus = makeBus<MainHandlers>()
@@ -133,7 +147,10 @@ function Plugin(props: { collections: { name: string, id: string }[], config: Co
 
       <VerticalSpace space="extraLarge" />
       <Columns space="extraSmall">
-        <Button fullWidth onClick={onCreateClick}>Create</Button>
+        <Button fullWidth
+                loading={loading} onClick={onCreateClick}
+                disabled={!enabled}
+        >Create</Button>
       </Columns>
       <VerticalSpace space="small" />
     </Container>
