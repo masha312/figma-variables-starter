@@ -1,24 +1,25 @@
 import {
-  Button,
-  Checkbox,
-  Columns,
-  Container,
-  Dropdown,
-  DropdownOption,
-  render,
-  Stack,
-  Text,
-  useWindowResize,
-  VerticalSpace,
+ Button,
+ Checkbox,
+ Columns,
+ Container,
+ Dropdown,
+ DropdownOption,
+ render,
+ Stack,
+ Text,
+ useWindowResize,
+ VerticalSpace,
 } from '@create-figma-plugin/ui'
-import { emit } from '@create-figma-plugin/utilities'
 import { h } from 'preact'
 import { useState } from 'preact/hooks'
+import { makeBus } from 'figma-messaging'
 import type { Config, OptionsState } from '../types'
 import { capitalize } from '../utils'
 import Fieldset from './components/Fieldset'
 import Swatches from './components/Swatches'
 import Units from './components/Units'
+import { MainHandlers } from './main'
 import JSX = h.JSX
 
 /**
@@ -74,13 +75,19 @@ function Plugin(props: { collections: { name: string, id: string }[], config: Co
     setOptions(newOptions)
   }
 
-  // handlers
+  // events
+  const [loading, setLoading] = useState(false)
+  const bus = makeBus<MainHandlers>()
+
   function onCreateClick() {
-    emit('CREATE', collectionId!, options)
+    setLoading(true)
+    bus.call('create', collectionId, options).then(data => {
+      setLoading(false)
+    })
   }
 
   function onWindowResize(size: { width: number; height: number }) {
-    emit('RESIZE', size)
+    void bus.call('resize', size)
   }
 
   useWindowResize(onWindowResize, {
