@@ -6,13 +6,14 @@
     "@create-figma-plugin/ui": "^3.2.0",
     "@create-figma-plugin/utilities": "^3.2.0",
     "@types/react": "^18.3.3",
+    "figma-messaging": "^1.0.0",
     "preact": ">=10"
   },
   "devDependencies": {
     "@create-figma-plugin/build": "^3.2.0",
     "@create-figma-plugin/tsconfig": "^3.2.0",
     "@figma/plugin-typings": "^1.97.0",
-    "typescript": ">=4"
+    "typescript": ">=5"
   },
   "scripts": {
     "watch": "build-figma-plugin src/app/main.ts src/app/ui.tsx --typecheck --watch",

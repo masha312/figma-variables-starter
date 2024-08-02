@@ -1,24 +1,25 @@
 import {
-  Button,
-  Checkbox,
-  Columns,
-  Container,
-  Dropdown,
-  DropdownOption,
-  render,
-  Stack,
-  Text,
-  useWindowResize,
-  VerticalSpace,
+ Button,
+ Checkbox,
+ Columns,
+ Container,
+ Dropdown,
+ DropdownOption,
+ render,
+ Stack,
+ Text,
+ useWindowResize,
+ VerticalSpace,
 } from '@create-figma-plugin/ui'
-import { emit } from '@create-figma-plugin/utilities'
 import { h } from 'preact'
-import { useState } from 'preact/hooks'
+import { useEffect, useState } from 'preact/hooks'
+import { makeBus } from 'figma-messaging'
 import type { Config, OptionsState } from '../types'
 import { capitalize } from '../utils'
 import Fieldset from './components/Fieldset'
 import Swatches from './components/Swatches'
 import Units from './components/Units'
+import { MainHandlers } from './main'
 import JSX = h.JSX
 
 /**
@@ -74,13 +75,33 @@ function Plugin(props: { collections: { name: string, id: string }[], config: Co
     setOptions(newOptions)
   }
 
-  // handlers
+  // enabled
+  const [enabled, setEnabled] = useState<boolean>(false)
+  useEffect(() => {
+    let state = false
+    for (const group of Object.values(options)) {
+      for (const value of Object.values(group)) {
+        if (value) {
+          state = true
+        }
+      }
+    }
+    setEnabled(state)
+  }, [options])
+
+  // events
+  const [loading, setLoading] = useState(false)
+  const bus = makeBus<MainHandlers>()
+
   function onCreateClick() {
-    emit('CREATE', collectionId!, options)
+    setLoading(true)
+    bus.call('create', collectionId, options).then(data => {
+      setLoading(false)
+    })
   }
 
   function onWindowResize(size: { width: number; height: number }) {
-    emit('RESIZE', size)
+    void bus.call('resize', size)
   }
 
   useWindowResize(onWindowResize, {
@@ -126,7 +147,10 @@ function Plugin(props: { collections: { name: string, id: string }[], config: Co
 
       <VerticalSpace space="extraLarge" />
       <Columns space="extraSmall">
-        <Button fullWidth onClick={onCreateClick}>Create</Button>
+        <Button fullWidth
+                loading={loading} onClick={onCreateClick}
+                disabled={!enabled}
+        >Create</Button>
       </Columns>
       <VerticalSpace space="small" />
     </Container>

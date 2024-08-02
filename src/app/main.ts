@@ -1,10 +1,11 @@
-import { on, showUI } from '@create-figma-plugin/utilities'
-import { variableOptions } from '../config/figma'
+import { makeBus } from 'figma-messaging'
+import { showUI } from '@create-figma-plugin/utilities'
 import { config } from '../config/tailwind'
+import { variableOptions } from '../config/figma'
 import { createVariables, skipPrivate } from '../utils'
-import { ConfigChoices } from '../types'
+import { type OptionsState } from '../types'
 
-function onSubmit(collectionId: string, options: ConfigChoices) {
+function create (collectionId: string, options: OptionsState): boolean {
   // get the collection
   const collection: VariableCollection | null = collectionId
     ? figma.variables.getVariableCollectionById(collectionId)
@@ -32,17 +33,26 @@ function onSubmit(collectionId: string, options: ConfigChoices) {
         }
       }
     }
+    return true
   }
+  return false
 }
 
-function onResize(size: { width: number, height: number }) {
+function resize (size: { width: number, height: number }) {
   const { width, height } = size
   figma.ui.resize(width, height)
 }
 
+const handlers = ({
+  create,
+  resize,
+})
+
+export type MainHandlers = typeof handlers
+
 export default function () {
-  on('CREATE', onSubmit)
-  on('RESIZE', onResize)
+  // handlers hash
+  makeBus(handlers)
 
   // collections
   let collections = figma.variables.getLocalVariableCollections()
@@ -57,6 +67,7 @@ export default function () {
     config: skipPrivate(config),
   }
 
+  // show ui
   showUI({
     width: 420,
     height: 800,
